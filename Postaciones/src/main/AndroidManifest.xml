@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tecnoredsa.postaciones" xmlns:tools="http://schemas.android.com/tools" >
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <!-- <uses-sdk tools:node="replace" /> -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_tecnored"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+
+        >
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.tecnoredsa.postaciones.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <activity
+            android:name="com.tecnoredsa.postaciones.MainActivityObras"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivityPostes"
+            android:windowSoftInputMode="stateAlwaysHidden"
+        />
+    </application>
+
+</manifest>

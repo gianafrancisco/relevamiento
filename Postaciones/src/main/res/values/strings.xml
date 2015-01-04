@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Relevamiento Obras</string>
+    <string name="action_settings">Configuración</string>
+    <string name="agregar_obra">Agregar Obra</string>
+    <string name="action_abrir">Abrir</string>
+    <string name="action_editar">Editar</string>
+    <string name="action_insertar">Insertar</string>
+    <string name="action_volver">Volver</string>
+    <string name="action_eliminar">Eliminar</string>
+    <string name="action_cambiar_nombre">Cambiar nombre</string>
+    <string name="ingrese_nombre_obra">Ingrese el nombre de la obra</string>
+    <string name="agregar_poste">Agregar Poste</string>
+    <string name="tipo_poste">Tipo de poste</string>
+    <string name="tipo_cemento">Cemento</string>
+    <string name="tipo_madera">Madera</string>
+    <string name="tipo_alumbrado">Alumbrado público</string>
+    <string name="tipo_fachada">Fachada</string>
+    <string name="tipo_mensula">Mensula</string>
+    <string name="tipo_otro">Otro</string>
+    <string name="tipo_preformada">Tipo de preformada</string>
+    <string name="tipo_preformada_retencion">Retención</string>
+    <string name="tipo_preformada_suspension">Suspensión</string>
+    <string name="tipo_preformada_tensor">Tensor</string>
+    <string name="datos_adicionales">Datos Adicionales</string>
+    <string name="ganancia">Ganancia</string>
+    <string name="empalme">Empalme</string>
+    <string name="mensula_prologada">Mensula prolongada</string>
+    <string name="detalles_adicionales">Detalles adicionales</string>
+    <string name="hint_dialog_agregar_poste">Ingrese datos adicionales de ser necesario.</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="longitud">Longitud </string>
+    <string name="latitud">Latitud </string>
+    <string name="satelites">Satelites</string>
+    <string name="action_compartir">Compartir</string>
+    <string name="relevamiento">Relevamiento</string>
+    <string name="seleccione_una_obra">Seleccione una obra</string>
+    <string name="action_capturar_imagen">Capturar imagen</string>
+    <string name="action_abrir_imagen">Ver imagenes</string>
+    <string name="action_actualizar_coordenadas">Actualizar coordenadas</string>
+    <string name="accuracy">Precisión (mts) </string>
+    <string name="files_to_export_title">Exportar</string>
+    <string-array name="files_to_export">
+        <item>csv</item>
+        <item>kml</item>
+        <item>kmz</item>
+        <item>html</item>
+    </string-array>
+    <string name="action_import_db">Importar base de datos</string>
+    <string name="action_exportar_db">Exportar base de datos</string>
+    <string name="action_generar_html">Generar html</string>
+    <string name="action_generar_kml">Generar kml</string>
+
+</resources>

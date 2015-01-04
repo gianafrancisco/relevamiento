@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/item_postacion_numeacion"
+        android:text="codificacion"
+        android:textSize="15dp"
+        android:textColor="#FF000000"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:id="@+id/item_postacion_tipo"
+        android:text="Tipo"
+        android:textSize="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:id="@+id/item_postacion_preformada"
+        android:text="Preformada"
+        android:textSize="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:id="@+id/item_postacion_coordenadas"
+        android:text="x/y"
+        android:textSize="7dp" />
+
+
+</LinearLayout>

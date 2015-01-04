@@ -1,0 +1,35 @@
+<!-- android:paddingTop="@dimen/activity_vertical_margin" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    android:orientation="vertical"
+    tools:context="com.tecnoredsa.postaciones.ObraFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/black"
+        android:gravity="right"
+        >
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:text=" + "
+            android:layout_weight="0"
+            android:id="@+id/bt_agregar_obra"
+            />
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/listView_Obra"
+        android:layout_weight="1">
+    </ListView>
+
+
+</LinearLayout>

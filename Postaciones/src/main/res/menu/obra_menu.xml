@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_obra_abrir"
+        android:title="@string/action_abrir"
+        android:orderInCategory="100"
+         />
+    <item android:id="@+id/action_cambiar_nombre"
+        android:title="@string/action_cambiar_nombre"
+        android:orderInCategory="101"
+        />
+    <item android:id="@+id/action_obra_eliminar"
+        android:title="@string/action_eliminar"
+        android:orderInCategory="101"
+         />
+
+</menu>
