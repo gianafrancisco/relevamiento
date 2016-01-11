@@ -1,65 +1,40 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.os.Build;
 
-import com.tecnoredsa.adapter.PostesArrayAdapter;
-import com.tecnoredsa.backend.ObraSeleccionada;
-import com.tecnoredsa.helper.PostesComparator;
-import com.tecnoredsa.helper.SqlHelperRelevamiento;
-import com.tecnoredsa.model.Obra;
-import com.tecnoredsa.model.Postacion;
+import com.fransis.adapter.PostesArrayAdapter;
+import com.fransis.backend.ObraSeleccionada;
+import com.fransis.helper.PostesComparator;
+import com.fransis.helper.SqlHelperRelevamiento;
+import com.fransis.model.Obra;
+import com.fransis.model.Postacion;
 
 import android.util.Log;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -323,6 +298,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         protected Integer doInBackground(Void... urls) {
+            final String realizadoPor = "<p>Realizado por <a href='http://www.gianafracisco.com.ar'>Francisco Giana</a></p>\n";
             int progress=0;
             int progressCount=0;
             Obra o=ObraSeleccionada.getInstance().getObraSeleccionada();
@@ -459,7 +435,7 @@ public class MainActivity extends ActionBarActivity {
                     str += "<name>" + po.getCodificacion() + "</name>";
                     str += "<description>" +
                             "<table><tbody><tr><td>" +
-                            "<p>Realizado por <a href='http://www.tecnoredsa.com.ar'>Tecnored S.A.</a></p>\n" +
+                            realizadoPor +
                             "<p></p>\n" +
                             "<p>"+getResources().getString(R.string.tipo_poste) + ": " + po.getTipo() + "</p>\n" +
                             "<p>"+getResources().getString(R.string.tipo_preformada) + ": " + po.getPreformada() + "</p>\n" +
@@ -471,7 +447,7 @@ public class MainActivity extends ActionBarActivity {
                             "</td></tr>" +
                             imgList +
                             "<tr><td>" +
-                            "<p>Realizado por <a href='http://www.tecnoredsa.com.ar'>Tecnored S.A.</a></p>\n" +
+                            realizadoPor +
                             "<p></p>\n" +
                             "</td></tr>" +
                             "</tbody></table>" +

@@ -1,16 +1,12 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,32 +20,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tecnoredsa.adapter.PostesArrayAdapter;
-import com.tecnoredsa.backend.ObraSeleccionada;
-import com.tecnoredsa.backend.PostacionSeleccionada;
-import com.tecnoredsa.helper.GpsHelperCoordinates;
-import com.tecnoredsa.helper.SqlHelperRelevamiento;
-import com.tecnoredsa.model.Obra;
-import com.tecnoredsa.model.Postacion;
+import com.fransis.backend.ObraSeleccionada;
+import com.fransis.backend.PostacionSeleccionada;
+import com.fransis.helper.SqlHelperRelevamiento;
+import com.fransis.model.Obra;
+import com.fransis.model.Postacion;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class PostacionFragment extends DialogFragment {

@@ -1,4 +1,4 @@
-package com.tecnoredsa.helper;
+package com.fransis.helper;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -8,13 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.tecnoredsa.adapter.PostesArrayAdapter;
-import com.tecnoredsa.model.Obra;
-import com.tecnoredsa.model.Postacion;
-import com.tecnoredsa.postaciones.R;
+import com.fransis.adapter.PostesArrayAdapter;
+import com.fransis.model.Obra;
+import com.fransis.model.Postacion;
+import com.fransis.postaciones.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by francisco on 13/01/14.

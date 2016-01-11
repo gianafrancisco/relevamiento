@@ -1,6 +1,6 @@
-package com.tecnoredsa.backend;
+package com.fransis.backend;
 
-import com.tecnoredsa.model.Postacion;
+import com.fransis.model.Postacion;
 
 /**
  * Created by francisco on 01/02/14.

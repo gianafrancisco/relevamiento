@@ -1,6 +1,6 @@
-package com.tecnoredsa.backend;
+package com.fransis.backend;
 
-import com.tecnoredsa.model.Obra;
+import com.fransis.model.Obra;
 
 /**
  * Created by francisco on 23/01/14.

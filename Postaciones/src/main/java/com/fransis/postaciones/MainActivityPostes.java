@@ -1,8 +1,6 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * Created by francisco on 03/06/14.

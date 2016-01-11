@@ -1,6 +1,5 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;

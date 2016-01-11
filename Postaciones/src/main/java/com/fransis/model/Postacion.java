@@ -1,4 +1,4 @@
-package com.tecnoredsa.model;
+package com.fransis.model;
 
 /**
  * Created by francisco on 13/01/14.
@@ -176,15 +176,5 @@ public class Postacion {
         }
         return tipo;
     }
-
-    /*public String getCodificacion() {
-
-        String ganancia=(this.ganancia.equals("Si"))?"-G":"";
-        String empalme=(this.empalme.equals("Si"))?"-E":"";
-        String men_prolongada=(mensula_prolongada.equals("Si"))?"-MP":"";
-        String nuevo=(agregar.equals("Si"))?"-N":"";
-        return codificacion;
-    }*/
-
 
 }

@@ -1,4 +1,4 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
 import android.content.Context;
 import android.location.GpsSatellite;
@@ -7,18 +7,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.tecnoredsa.helper.GpsHelperCoordinates;
+import com.fransis.helper.GpsHelperCoordinates;
 
 import java.util.Iterator;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.floor;
 
 /**
  * Created by francisco on 27/01/14.

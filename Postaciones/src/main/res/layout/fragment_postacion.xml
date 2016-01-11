@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingTop="0dp"
     android:id="@+id/frag_postacion"
-    tools:context="com.tecnoredsa.postaciones.PostacionFragment">
+    tools:context="com.fransis.postaciones.PostacionFragment">
 
     <!-- android:paddingTop="@dimen/activity_vertical_margin" -->
     <LinearLayout

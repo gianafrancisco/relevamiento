@@ -1,4 +1,4 @@
-package com.tecnoredsa.adapter;
+package com.fransis.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.tecnoredsa.backend.PostacionSeleccionada;
-import com.tecnoredsa.helper.GpsHelperCoordinates;
-import com.tecnoredsa.model.Postacion;
-import com.tecnoredsa.postaciones.R;
+import com.fransis.backend.PostacionSeleccionada;
+import com.fransis.helper.GpsHelperCoordinates;
+import com.fransis.model.Postacion;
+import com.fransis.postaciones.R;
 
 import java.util.List;
 

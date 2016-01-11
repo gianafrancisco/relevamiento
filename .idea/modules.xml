@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Postaciones.iml" filepath="$PROJECT_DIR$/Postaciones.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Postaciones/Postaciones-Postaciones.iml" filepath="$PROJECT_DIR$/Postaciones/Postaciones-Postaciones.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Postaciones/Postaciones.iml" filepath="$PROJECT_DIR$/Postaciones/Postaciones.iml" />
+      <module fileurl="file://$PROJECT_DIR$/relevamiento.iml" filepath="$PROJECT_DIR$/relevamiento.iml" />
     </modules>
   </component>
 </project>
-

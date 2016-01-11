@@ -1,6 +1,6 @@
-package com.tecnoredsa.helper;
+package com.fransis.helper;
 
-import com.tecnoredsa.model.Postacion;
+import com.fransis.model.Postacion;
 
 import java.util.Comparator;
 
@@ -16,15 +16,5 @@ import java.util.Comparator;
 public class PostesComparator implements Comparator<Postacion> {
     public int compare(Postacion o1, Postacion o2) {
         return o1.getPostacion_id() - o2.getPostacion_id();
-/*        if(o1.getPostacion_id() > o2.getPostacion_id()){
-            return 1;
-        }else if(o1.getPostacion_id() < o2.getPostacion_id())
-        {
-            return -1;
-        }else
-        {
-            return 0;
-        }
-*/
     }
 }

@@ -1,6 +1,4 @@
-package com.tecnoredsa.model;
-
-import android.support.v7.appcompat.R;
+package com.fransis.model;
 
 /**
  * Created by francisco on 13/01/14.

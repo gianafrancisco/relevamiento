@@ -1,16 +1,7 @@
-package com.tecnoredsa.dialog;
+package com.fransis.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-
-import com.tecnoredsa.helper.SqlHelperRelevamiento;
-import com.tecnoredsa.model.Obra;
-import com.tecnoredsa.postaciones.R;
 
 /**
  * Created by francisco on 22/01/14.

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="85dp"
     android:orientation="horizontal"
-    tools:context="com.tecnoredsa.postaciones.GpsFragment"
+    tools:context="com.fransis.postaciones.GpsFragment"
     android:background="@android:color/background_dark">
 
 

@@ -8,7 +8,7 @@
     android:id="@+id/container_gps"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    tools:context="com.tecnoredsa.postaciones.MainActivity"
+    tools:context="com.fransis.postaciones.MainActivity"
     tools:ignore="MergeRootFrame" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.tecnoredsa.postaciones.MainActivity"
+        tools:context="com.fransis.postaciones.MainActivity"
         tools:ignore="MergeRootFrame" />
 
 </LinearLayout>

@@ -1,8 +1,6 @@
-package com.tecnoredsa.postaciones;
+package com.fransis.postaciones;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,16 +13,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.tecnoredsa.backend.ObraSeleccionada;
-import com.tecnoredsa.helper.SqlHelperRelevamiento;
-import com.tecnoredsa.model.Obra;
+import com.fransis.backend.ObraSeleccionada;
+import com.fransis.helper.SqlHelperRelevamiento;
+import com.fransis.model.Obra;
 
 import java.io.File;
 

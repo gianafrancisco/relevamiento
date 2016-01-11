@@ -1,11 +1,10 @@
-package com.tecnoredsa.helper;
+package com.fransis.helper;
 
-import android.location.Location;
 import android.util.FloatMath;
 import android.util.Log;
 
-import com.tecnoredsa.adapter.PostesArrayAdapter;
-import com.tecnoredsa.model.Postacion;
+import com.fransis.adapter.PostesArrayAdapter;
+import com.fransis.model.Postacion;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.floor;
