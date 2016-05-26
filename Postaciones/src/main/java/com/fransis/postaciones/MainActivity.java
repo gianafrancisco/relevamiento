@@ -310,9 +310,9 @@ public class MainActivity extends ActionBarActivity {
                 progressCount=p.getCount();
 
             File path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            File fileo = new File(path, o.getNombre() + ".kml");
+            File fileo = new File(path, o.getNombre().trim() + ".kml");
             FileOutputStream fo = null;
-            File filecsvo = new File(path, o.getNombre() + ".csv");
+            File filecsvo = new File(path, o.getNombre().trim() + ".csv");
             FileOutputStream fcsvo = null;
 /*
             File filehtmlo = new File(path, o.getNombre() + ".html");
@@ -338,7 +338,7 @@ public class MainActivity extends ActionBarActivity {
 /*
             String html="<html><body style=\"font-family:Verdana,sans-serif;\"><table>";
 */
-            String str = "<kml><Document>" +
+            String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document>" +
                     "<Style id=\"PA\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"PC\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"PMa\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href> </Icon></IconStyle></Style>" +
@@ -349,7 +349,7 @@ public class MainActivity extends ActionBarActivity {
                     "<Style id=\"E\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/cross-hairs.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"N\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/shaded_dot.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"MP\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/info-i.png</href> </Icon></IconStyle></Style>" +
-                    "<Folder><name>" + o.getNombre() + "</name><open>1</open>";
+                    "<Folder><name>" + o.getNombre().trim() + "</name><open>1</open>";
             str+="<description><p>Referencias</p>" +
                     "<table><thead><tr><th>Icono</th><th>Codigo</th><th>Descripcion</th></tr></thead>"+
                     "<tbody>"+
