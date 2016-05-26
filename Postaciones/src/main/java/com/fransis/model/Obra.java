@@ -8,16 +8,16 @@ public class Obra {
     private Integer id;
 
     public Obra(String nombre, Integer id) {
-        this.nombre = nombre;
+        this.nombre = nombre.trim();
         this.id = id;
     }
 
     public String getNombre() {
-        return nombre;
+        return nombre.trim();
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.trim();
     }
 
     public Integer getId() {
