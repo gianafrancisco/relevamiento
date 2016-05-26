@@ -51,5 +51,6 @@
     <string name="action_exportar_db">Exportar base de datos</string>
     <string name="action_generar_html">Generar html</string>
     <string name="action_generar_kml">Generar kml</string>
+    <string name="codificacion">Codificación</string>
 
 </resources>

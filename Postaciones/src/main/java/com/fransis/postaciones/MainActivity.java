@@ -18,6 +18,7 @@ import android.os.Build;
 
 import com.fransis.adapter.PostesArrayAdapter;
 import com.fransis.backend.ObraSeleccionada;
+import com.fransis.helper.GpsHelperCoordinates;
 import com.fransis.helper.PostesComparator;
 import com.fransis.helper.SqlHelperRelevamiento;
 import com.fransis.model.Obra;
@@ -43,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
     private ShareActionProvider mShareActionProvider;
     private LocationListener locationListener=null;
     private LocationManager locationManager=null;
+    private GpsHelperCoordinates gps=null;
     final private int MY_FILECHOOSER_CODE = 1;
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
@@ -68,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
         };
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
+        gps = new GpsHelperCoordinates();
     }
 
 
@@ -338,7 +340,8 @@ public class MainActivity extends ActionBarActivity {
 /*
             String html="<html><body style=\"font-family:Verdana,sans-serif;\"><table>";
 */
-            String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document>" +
+            StringBuilder str = new StringBuilder();
+            str.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document>" +
                     "<Style id=\"PA\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"PC\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"PMa\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href> </Icon></IconStyle></Style>" +
@@ -349,8 +352,8 @@ public class MainActivity extends ActionBarActivity {
                     "<Style id=\"E\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/cross-hairs.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"N\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/shaded_dot.png</href> </Icon></IconStyle></Style>" +
                     "<Style id=\"MP\"><IconStyle> <Icon> <href>http://maps.google.com/mapfiles/kml/shapes/info-i.png</href> </Icon></IconStyle></Style>" +
-                    "<Folder><name>" + o.getNombre().trim() + "</name><open>1</open>";
-            str+="<description><p>Referencias</p>" +
+                    "<Folder><name>" + o.getNombre().trim() + "</name><open>1</open>");
+            str.append("<description><p>Referencias</p>" +
                     "<table><thead><tr><th>Icono</th><th>Codigo</th><th>Descripcion</th></tr></thead>"+
                     "<tbody>"+
                     "<tr><td><img src='http://maps.google.com/mapfiles/kml/shapes/triangle.png' /></td><td>PA</td><td>Poste de alumbrado</td></tr>"+
@@ -365,16 +368,19 @@ public class MainActivity extends ActionBarActivity {
                     "<tr><td><img src='http://maps.google.com/mapfiles/kml/shapes/info-i.png' /></td><td>MP</td><td>Mensula prolongada</td></tr>"+
                     "</tbody>"+
                     "</table>"+
-                    "</description>";
+                    "</description>");
             //str+="<Style id=\"PA\"><IconStyle> <Icon> <href>icons/PA.png</href> </Icon></IconStyle></Style><Style id=\"PC\"><IconStyle> <Icon> <href>icons/PC.png</href> </Icon></IconStyle></Style><Style id=\"PMa\"><IconStyle> <Icon> <href>icons/PMa.png</href> </Icon></IconStyle></Style><Style id=\"PF\"><IconStyle> <Icon> <href>icons/PF.png</href> </Icon></IconStyle></Style><Style id=\"PMe\"><IconStyle> <Icon> <href>icons/PMe.png</href> </Icon></IconStyle></Style><Style id=\"PO\"><IconStyle> <Icon> <href>icons/PO.png</href> </Icon></IconStyle></Style><Style id=\"G\"><IconStyle> <Icon> <href>icons/G.png</href> </Icon></IconStyle></Style><Style id=\"E\"><IconStyle> <Icon> <href>icons/E.png</href> </Icon></IconStyle></Style><Style id=\"N\"><IconStyle> <Icon> <href>icons/N.png</href> </Icon></IconStyle></Style><Style id=\"MP\"><IconStyle> <Icon> <href>icons/MP.png</href> </Icon></IconStyle></Style>";
-            String  csv = "Codificación," +
+            StringBuilder csv = new StringBuilder();
+            csv.append(getResources().getString(R.string.codificacion)+"," +
                     getResources().getString(R.string.tipo_poste)+","+
                     getResources().getString(R.string.tipo_preformada)+","+
                     getResources().getString(R.string.agregar_poste)+","+
                     getResources().getString(R.string.ganancia)+","+
                     getResources().getString(R.string.empalme)+","+
                     getResources().getString(R.string.mensula_prologada)+","+
-                    getResources().getString(R.string.detalles_adicionales)+"\n";
+                    getResources().getString(R.string.detalles_adicionales)+","+
+                    getResources().getString(R.string.latitud)+","+
+                    getResources().getString(R.string.longitud)+"\n");
 
             if(p != null) {
                 for (int i = 0; i < p.getCount(); i++) {
@@ -407,14 +413,16 @@ public class MainActivity extends ActionBarActivity {
                         }
                     }
 
-                    csv+=po.getCodificacion()+",";
-                    csv+=po.getTipo()+",";
-                    csv+=po.getPreformada()+",";
-                    csv+=po.getAgregar()+",";
-                    csv+=po.getGanancia()+",";
-                    csv+=po.getEmpalme()+",";
-                    csv+=po.getMensula_prolongada()+",";
-                    csv+="\""+po.getDetalle_adicional()+"\"\n";
+                    csv.append(po.getCodificacion()+",");
+                    csv.append(po.getTipo()+",");
+                    csv.append(po.getPreformada()+",");
+                    csv.append(po.getAgregar()+",");
+                    csv.append(po.getGanancia()+",");
+                    csv.append(po.getEmpalme()+",");
+                    csv.append(po.getMensula_prolongada()+",");
+                    csv.append("\""+po.getDetalle_adicional()+"\",");
+                    csv.append(gps.decimal2degree(po.getGps_latitude())+",");
+                    csv.append(gps.decimal2degree(po.getGps_longitude())+"\n");
 
 /*                    if(!imgList.equals("")) {
 
@@ -431,9 +439,9 @@ public class MainActivity extends ActionBarActivity {
                         html += "<tr><td style=\"vertical-align:text-top;\">" + detalle + "</td><td><table>" + imgListHtml + "</table></td></tr>";
                     }
 */
-                    str += "<Placemark>";
-                    str += "<name>" + po.getCodificacion() + "</name>";
-                    str += "<description>" +
+                    str.append("<Placemark>");
+                    str.append("<name>" + po.getCodificacion() + "</name>");
+                    str.append("<description>" +
                             "<table><tbody><tr><td>" +
                             realizadoPor +
                             "<p></p>\n" +
@@ -451,28 +459,28 @@ public class MainActivity extends ActionBarActivity {
                             "<p></p>\n" +
                             "</td></tr>" +
                             "</tbody></table>" +
-                            "</description>";
-                    str += "<LookAt>";
-                    str += "<longitude>" + po.getGps_longitude() + "</longitude>";
-                    str += "<latitude>" + po.getGps_latitude() + "</latitude>";
-                    str += "<altitude>0</altitude>";
-                    str += "</LookAt>";
-                    str+="<styleUrl>#"+po.getImagenTipo()+"</styleUrl>";
-                    str += "<Point>";
-                    str += "<coordinates>" + po.getGps_longitude() + "," + po.getGps_latitude() + ",0</coordinates>";
-                    str += "</Point>";
-                    str += "</Placemark>";
+                            "</description>");
+                    str.append("<LookAt>");
+                    str.append("<longitude>" + po.getGps_longitude() + "</longitude>");
+                    str.append("<latitude>" + po.getGps_latitude() + "</latitude>");
+                    str.append("<altitude>0</altitude>");
+                    str.append("</LookAt>");
+                    str.append("<styleUrl>#"+po.getImagenTipo()+"</styleUrl>");
+                    str.append("<Point>");
+                    str.append("<coordinates>" + po.getGps_longitude() + "," + po.getGps_latitude() + ",0</coordinates>");
+                    str.append("</Point>");
+                    str.append("</Placemark>");
                 }
             }
-            str += "</Folder></Document></kml>";
+            str.append("</Folder></Document></kml>");
 /*
             html+="</table></body></html>";
 */
             try {
 
-                fo.write(str.getBytes());
+                fo.write(str.toString().getBytes());
                 fo.close();
-                fcsvo.write(csv.getBytes());
+                fcsvo.write(csv.toString().getBytes());
                 fcsvo.close();
 /*
                 fhtmlo.write(html.getBytes());
