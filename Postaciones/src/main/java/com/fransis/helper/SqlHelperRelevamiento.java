@@ -21,35 +21,28 @@ import java.util.ArrayList;
 public class SqlHelperRelevamiento extends SQLiteOpenHelper{
 
     public static final String OBRA_TABLE = "obra";
-//    public static final String OBRA_COLUMN_ID = "obra_id";
-//    public static final String OBRA_COLUMN_NOMBRE = "nombre";
 
     public static final String POSTACION_TABLE = "postacion";
-    //    public static final String POSTACION_COLUMN_ID = "postacion_id";
-//    public static final String POSTACION_COLUMN_OBRA_ID = "obra_id";
-//    public static final String POSTACION_COLUMN_GPS_LONGITUDE = "gps_longitude";
-//    public static final String POSTACION_COLUMN_GPS_LATITUDE = "gps_latitude";
     private static final String SQL_OBRA_SELECT_ALL = "SELECT * FROM OBRA";
+    private static final String UPGRADE_VERSION_1_TO_2 = "ALTER TABLE obra ADD COLUMN comentario TEXT DEFAULT ''";
 
 
     private static final String DATABASE_NAME = "relevamiento.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database creation sql statement
-    private static final String TABLE_OBRA_CREATE = "CREATE TABLE obra (obra_id INTEGER PRIMARY KEY, nombre TEXT)";
+    private static final String TABLE_OBRA_CREATE = "CREATE TABLE obra (obra_id INTEGER PRIMARY KEY, nombre TEXT, comentario TEXT )";
     private static final String TABLE_POSTACION_CREATE = "CREATE TABLE postacion (obra_id NUMERIC, postacion_id INTEGER PRIMARY KEY, gps_longitude TEXT, gps_latitude TEXT, tipo TEXT, preformada TEXT, ganancia TEXT, empalme TEXT, mensula_prolongada TEXT, agregar TEXT,detalle_adicional TEXT)";
 
     private static SqlHelperRelevamiento INSTANCE = null;
 
-    private SQLiteDatabase db=null;
+    private SQLiteDatabase db = null;
     private Context context;
 
     private SqlHelperRelevamiento(Context context) {
-
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context=context;
-        db=getWritableDatabase();
-
+        this.context = context;
+        db = getWritableDatabase();
     }
     public static SqlHelperRelevamiento getInstance(Context context){
         if(INSTANCE == null) INSTANCE = new SqlHelperRelevamiento(context);
@@ -70,14 +63,19 @@ public class SqlHelperRelevamiento extends SQLiteOpenHelper{
         Log.w(SqlHelperRelevamiento.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS " + OBRA_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + POSTACION_TABLE);
-        onCreate(db);
+        if(oldVersion == 1 && newVersion == 2 ){
+            db.execSQL(UPGRADE_VERSION_1_TO_2);
+        }else{
+            db.execSQL("DROP TABLE IF EXISTS " + OBRA_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + POSTACION_TABLE);
+            onCreate(db);
+        }
     }
 
     public boolean addObra(Obra o){
         ContentValues obraValues=new ContentValues();
         obraValues.put("nombre",o.getNombre());
+        obraValues.put("comentario",o.getComentario());
         if(db.insert(OBRA_TABLE,null,obraValues) >0){
             Log.v("DebugAPP","Insert OK");
             return true;
@@ -91,55 +89,55 @@ public class SqlHelperRelevamiento extends SQLiteOpenHelper{
         ContentValues obraValues=new ContentValues();
         String[] ids={o.getId().toString()};
         obraValues.put("nombre",o.getNombre());
-        if(db.update(OBRA_TABLE,obraValues,"obra_id=?",ids) >0){
-            Log.v("DebugAPP","Insert OK");
+        obraValues.put("comentario",o.getComentario());
+        if (db.update(OBRA_TABLE, obraValues, "obra_id=?", ids) > 0) {
+            Log.v("DebugAPP", "Insert OK");
             return true;
-        }
-        else{
-            Log.v("DebugAPP","Insert FAIL");
+        } else {
+            Log.v("DebugAPP", "Insert FAIL");
             return false;
         }
     }
     public boolean deleteObra(Obra o){
         String[] ids={(new Integer(o.getId()).toString())};
-        if(db.delete(OBRA_TABLE, "obra_id=?",ids) >0){
-            db.delete(POSTACION_TABLE, "obra_id=?",ids);
-            Log.v("DebugAPP","Delete OK");
+        if (db.delete(OBRA_TABLE, "obra_id=?", ids) > 0) {
+            db.delete(POSTACION_TABLE, "obra_id=?", ids);
+            Log.v("DebugAPP", "Delete OK");
             return true;
-        }
-        else{
-            Log.v("DebugAPP","Delete FAIL");
+        } else {
+            Log.v("DebugAPP", "Delete FAIL");
             return false;
         }
     }
     public ArrayList<Obra> getArrayObra(){
-        String columns[]={"obra_id","nombre"};
-        ArrayList<Obra> olist=new ArrayList<Obra>();
-        Cursor cur=db.query(OBRA_TABLE,columns,null,null,null,null,"obra_id desc");
+        String columns[]={"obra_id","nombre", "comentario"};
+        ArrayList<Obra> olist = new ArrayList<Obra>();
+        Cursor cur = db.query(OBRA_TABLE, columns, null, null, null, null, "obra_id desc");
         cur.moveToFirst();
         do{
-            Log.v("DebugAPP","obra_id: "+cur.getInt(0)+", Nombre: "+cur.getString(1));
-            Obra o=new Obra(cur.getString(1),cur.getInt(0));
+            Log.v("DebugAPP", "obra_id: " + cur.getInt(0) + ", Nombre: " + cur.getString(1) + ", Comentario: "+ cur.getString(2));
+            Obra o = new Obra(cur.getString(1), cur.getInt(0));
+            o.setComentario(cur.getString(2));
             olist.add(o);
         }while(cur.moveToNext());
         return olist;
     }
 
-    public ArrayAdapter<Obra> getAdapterObra(){
-        String columns[]={"obra_id","nombre"};
+    public ArrayAdapter<Obra> getAdapterObra() {
+        String columns[] = {"obra_id", "nombre", "comentario"};
         ArrayAdapter<Obra> olist;
-        olist = new ArrayAdapter<Obra>(context, R.layout.item_obra,R.id.item_obra_string);
-        Cursor cur=db.query(OBRA_TABLE,columns,null,null,null,null,"obra_id desc");
-        if(cur.getCount() > 0){
+        olist = new ArrayAdapter<Obra>(context, R.layout.item_obra, R.id.item_obra_string);
+        Cursor cur = db.query(OBRA_TABLE, columns, null, null, null, null, "obra_id desc");
+        if (cur.getCount() > 0) {
             cur.moveToFirst();
-            do{
-                Log.v("DebugAPP","obra_id: "+cur.getInt(0)+", Nombre: "+cur.getString(1));
-                Obra o=new Obra(cur.getString(1),cur.getInt(0));
+            do {
+                Log.v("DebugAPP", "obra_id: " + cur.getInt(0) + ", Nombre: " + cur.getString(1) + ", Comentario: "+ cur.getString(2));
+                Obra o = new Obra(cur.getString(1), cur.getInt(0));
+                o.setComentario(cur.getString(2));
                 olist.add(o);
-            }while(cur.moveToNext());
+            } while (cur.moveToNext());
             return olist;
-        }else
-        {
+        } else {
             return null;
         }
     }

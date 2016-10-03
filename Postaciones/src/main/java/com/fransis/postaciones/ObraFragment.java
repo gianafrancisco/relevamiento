@@ -114,6 +114,9 @@ public class ObraFragment extends DialogFragment {
             case R.id.action_cambiar_nombre:
                 showDialogCambiarNombre();
                 return true;
+            case R.id.action_editar_comentarios:
+                showDialogEditarComentario();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -149,6 +152,38 @@ public class ObraFragment extends DialogFragment {
                     dir.renameTo(newdir);
                     my_listview.setAdapter(SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterObra());
                 }
+            }
+        });
+        builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog1 = builder.create();
+        dialog1.show();
+    }
+
+    private void showDialogEditarComentario() {
+
+        Obra n = ObraSeleccionada.getInstance().getObraSeleccionada();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_editar_comentario_obra, null);
+        EditText my_editText = (EditText) v.findViewById(R.id.te_comentario_obra);
+        my_editText.setText(n.getComentario().toString());
+        builder.setView(v);
+        builder.setTitle(R.string.action_editar_comentarios);
+        builder.setPositiveButton(R.string.action_editar_comentarios, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText my_editText = (EditText) dialog1.findViewById(R.id.te_comentario_obra);
+                String comentario = my_editText.getText().toString();
+                Log.v("DebugAPP", comentario);
+                Obra n = ObraSeleccionada.getInstance().getObraSeleccionada();
+                n.setComentario(comentario);
+                SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).updateObra(n);
+                ObraSeleccionada.getInstance().setObraSeleccionada(n);
             }
         });
         builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {

@@ -6,10 +6,12 @@ package com.fransis.model;
 public class Obra {
     private String nombre;
     private Integer id;
+    private String comentario;
 
     public Obra(String nombre, Integer id) {
         this.nombre = nombre.trim();
         this.id = id;
+        this.comentario = "";
     }
 
     public String getNombre() {
@@ -29,5 +31,13 @@ public class Obra {
     }
     public String toString(){
         return getNombre();
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 }

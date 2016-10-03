@@ -52,5 +52,7 @@
     <string name="action_generar_html">Generar html</string>
     <string name="action_generar_kml">Generar kml</string>
     <string name="codificacion">Codificación</string>
+    <string name="action_editar_comentarios">Editar comentarios</string>
+    <string name="ingrese_comentario_obra">Ingrese el comentario de la obra</string>
 
 </resources>

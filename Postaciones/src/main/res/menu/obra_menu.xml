@@ -9,6 +9,10 @@
         android:title="@string/action_cambiar_nombre"
         android:orderInCategory="101"
         />
+    <item android:id="@+id/action_editar_comentarios"
+        android:title="@string/action_editar_comentarios"
+        android:orderInCategory="101"
+        />
     <item android:id="@+id/action_obra_eliminar"
         android:title="@string/action_eliminar"
         android:orderInCategory="101"
