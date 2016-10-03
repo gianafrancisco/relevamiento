@@ -49,7 +49,6 @@ public class PostacionFragment extends DialogFragment {
     private ListView my_listview=null;
     private GridView gridview=null;
     private View.OnClickListener listener= null;
-    //private TextView tvobralabel = null;
     public PostacionFragment() {
 
     }
@@ -60,15 +59,12 @@ public class PostacionFragment extends DialogFragment {
         View rootView = inflater.inflate(R.layout.fragment_postacion, container, false);
         SqlHelperRelevamiento dbRelevamiento=SqlHelperRelevamiento.getInstance(rootView.getContext());
         Button my_button = (Button)rootView.findViewById(R.id.bt_agregar_poste);
-        //tvobralabel = (TextView)rootView.findViewById(R.id.postacion_fragment_obra_label);
-        //tvobralabel.setText(ObraSeleccionada.getInstance().getObraSeleccionada().getNombre());
         gridview = (GridView) rootView.findViewById(R.id.postacion_gridview);
 
 
         gridview.setAdapter(dbRelevamiento.getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada()));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                //Toast.makeText(getActivity().getApplicationContext(),"Pos: "+position,Toast.LENGTH_LONG).show();
                 Postacion p = (Postacion) gridview.getItemAtPosition(position);
                 PostacionSeleccionada.getInstance().setPostacion(p);
                 PostacionSeleccionada.getInstance().setInsertar(false);
@@ -85,13 +81,8 @@ public class PostacionFragment extends DialogFragment {
             }
         };
         my_button.setOnClickListener(listener);
-        //getActivity().getActionBar().show();
-        getActivity().getActionBar().setTitle(ObraSeleccionada.getInstance().getObraSeleccionada().getNombre());
 
-        //GpsHelperCoordinates gps = new GpsHelperCoordinates();
-        //Obra o=ObraSeleccionada.getInstance().getObraSeleccionada();
-        //Float f=new Float(gps.calulatePath(dbRelevamiento.getAdapterPostacion(o)));
-        //Log.v("DebugAPP",f.toString());
+        getActivity().getActionBar().setTitle(ObraSeleccionada.getInstance().getObraSeleccionada().getNombre());
 
         return rootView;
     }
@@ -113,21 +104,6 @@ public class PostacionFragment extends DialogFragment {
                     // Get the Uri of the selected file
                     Uri uri = data.getData();
                     Log.v("DebugAPP", "File Uri: " + uri.toString());
-
-                    //File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString()+"/"+ObraSeleccionada.getInstance().getObraSeleccionada().getNombre()+"/"+p.getPostacion_id().toString());
-                    //Log.v("DebugAPP",file.getAbsolutePath());
-                    //Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    //Uri contentUri = Uri.fromFile(file);
-                    //mediaScanIntent.setData(contentUri);
-                    //Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri);
-                    //getActivity().sendBroadcast(mediaScanIntent);
-
-                    // Get the path
-//                    String path = FileUtils.getPath(this, uri);
-//                    Log.v("DebugAPP", "File Path: " + path);
-                    // Get the file instance
-                    // File file = new File(path);
-                    // Initiate the upload
                 }
                 break;
         }
@@ -159,31 +135,11 @@ public class PostacionFragment extends DialogFragment {
             case R.id.action_capturar_imagen:
                 dispatchTakePictureIntent();
                 return true;
-            //case R.id.action_abrir_imagen:
-                //File path =
-                //File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString()+"/"+ObraSeleccionada.getInstance().getObraSeleccionada().getNombre()+"/"+p.getPostacion_id().toString());
-                //Log.v("DebugAPP",file.getAbsolutePath());
-                //Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                //Uri contentUri = Uri.fromFile(file);
-                //mediaScanIntent.setData(contentUri);
-                //getActivity().getApplicationContext().sendBroadcast(mediaScanIntent);
+            case R.id.action_abrir_imagen:
 
-
-                /*
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setData(Uri.fromFile(file));
-                intent.setType("images/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                //intent.setDataAndType(Uri.fromFile(file), "file/*");
-                try {
-                startActivityForResult(Intent.createChooser(intent,"Selecciones el archivo a abrir"),FILE_SELECT_CODE);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    // Potentially direct the user to the Market with a Dialog
-                    Toast.makeText(getActivity().getApplicationContext(), "No se encuentra ningun explorador de archivos instalado",
-                            Toast.LENGTH_SHORT).show();
-                }*/
-            //return true;
+                Intent postesActivity = new Intent(getActivity(),MainActivityImagen.class);
+                startActivity(postesActivity);
+                return true;
             case R.id.action_actualizar_coordenadas:
                 actualizarCoordenadas();
                 return true;

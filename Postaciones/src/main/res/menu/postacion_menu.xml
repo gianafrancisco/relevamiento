@@ -21,9 +21,9 @@
         android:title="@string/action_capturar_imagen"
         android:orderInCategory="101"
     />
-    <!-- <item android:id="@+id/action_abrir_imagen"
+    <item android:id="@+id/action_abrir_imagen"
         android:title="@string/action_abrir_imagen"
         android:orderInCategory="101"
-    /> -->
+    />
 
 </menu>
