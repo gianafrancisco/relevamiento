@@ -3,18 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fransis.postaciones.MainActivity" >
 
-    <!-- <item android:id="@+id/action_volver"
-        android:title="@string/action_volver"
-        android:icon="@drawable/abc_ic_ab_back_holo_dark"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        />
-    <item android:id="@+id/action_agregar"
-        android:title="@string/action_abrir"
-        android:icon="@drawable/abc_ic_commit_search_api_holo_dark"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        /> -->
     <item android:id="@+id/action_import_db"
         android:title="@string/action_import_db"
         android:icon="@drawable/ic_importar_db"
@@ -36,7 +24,7 @@
 
     <item android:id="@+id/action_abrir_archivo"
         android:title="@string/action_abrir"
-        android:icon="@drawable/abrir_google_earth"
+        android:icon="@drawable/ic_google_earth"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         />
@@ -48,14 +36,4 @@
         android:actionProviderClass=
             "android.widget.ShareActionProvider"
      />
-    <!--
-    <item android:id="@+id/action_compartir_kmz"
-        android:title="@string/action_compartir_kmz"
-        android:icon="@drawable/abc_ic_menu_share_holo_dark"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:actionProviderClass=
-            "android.widget.ShareActionProvider"
-        />
-    -->
 </menu>

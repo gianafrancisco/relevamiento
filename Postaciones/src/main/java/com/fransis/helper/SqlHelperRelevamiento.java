@@ -166,7 +166,7 @@ public class SqlHelperRelevamiento extends SQLiteOpenHelper{
         String columns[]={"postacion_id","obra_id","gps_longitude","gps_latitude","tipo","preformada","ganancia","empalme","mensula_prolongada","agregar","detalle_adicional"};
         String[] ids={o.getId().toString()};
         PostesArrayAdapter plist;
-        plist = new PostesArrayAdapter(context, R.layout.item_postacion);
+        plist = new PostesArrayAdapter(context, R.layout.item_postacion, o);
         Cursor cur=db.query(POSTACION_TABLE,columns,"obra_id=?",ids,null,null,"postacion_id desc");
         Integer numeracion=cur.getCount();
         if(cur.getCount() > 0){
