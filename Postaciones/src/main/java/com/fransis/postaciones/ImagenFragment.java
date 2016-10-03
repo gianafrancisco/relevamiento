@@ -93,7 +93,9 @@ public class ImagenFragment extends DialogFragment {
             }
         }
         gridview.setAdapter(imagenesArrayAdapter);
-        imageView.setImageBitmap((Bitmap) gridview.getItemAtPosition(0));
+        if(!imagenesArrayAdapter.isEmpty()){
+            imageView.setImageBitmap((Bitmap) gridview.getItemAtPosition(0));
+        }
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Bitmap f = (Bitmap) gridview.getItemAtPosition(position);

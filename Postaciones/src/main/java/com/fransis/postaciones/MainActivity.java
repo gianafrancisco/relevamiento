@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import com.fransis.helper.PostesComparator;
 import com.fransis.helper.SqlHelperRelevamiento;
 import com.fransis.model.Obra;
 import com.fransis.model.Postacion;
+import com.fransis.utils.Imagen;
 
 import android.util.Log;
 import android.widget.ShareActionProvider;
@@ -46,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
     private LocationManager locationManager=null;
     private GpsHelperCoordinates gps=null;
     final private int MY_FILECHOOSER_CODE = 1;
+    private ExifInterface exif = null;
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -397,11 +400,20 @@ public class MainActivity extends ActionBarActivity {
                     if(files != null) {
                         for (int j = 0; j < files.length; j++) {
                             //Log.v("DebugAPP",files[j].getName().toString());
-                            imgList += "<tr><td><p><img src=\"" +
+
+                            try {
+                                exif = new ExifInterface(files[j].getAbsoluteFile().toString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+                            imgList += "<tr><td><p style=\"" + (openEarth.booleanValue() ? Imagen.rotateCssPHtml(orientation, 220, 124) : Imagen.rotateCssPHtml(orientation, 400, 225)) + "\"><img src=\"" +
                                     o.getNombre() + "/" +
-                                    (openEarth.booleanValue()?po.getPostacion_id().toString():po.getCodificacion()) + "/" +
+                                    (openEarth.booleanValue() ? po.getPostacion_id().toString() : po.getCodificacion()) + "/" +
                                     files[j].getName() +
-                                    "\" style=\""+(openEarth.booleanValue()?"width:220px; height: 124px;":"width:400px; height: 225px;")+"\"></img></p></td></tr>";
+                                    "\" style=\"" + (openEarth.booleanValue() ? "width:220px; height: 124px;" : "width:400px; height: 225px;") + Imagen.rotateCss(orientation) + "\"></img></p></td></tr>";
+
 /*
                             imgListHtml += "<tr><td><p><img src=\"" +
                                     o.getNombre() + "/" +
@@ -701,12 +713,18 @@ public class MainActivity extends ActionBarActivity {
                     if(files != null) {
                         for (int j = 0; j < files.length; j++) {
                             //(openEarth.booleanValue()?po.getPostacion_id().toString():po.getCodificacion())
+                            try {
+                                exif = new ExifInterface(files[j].getAbsoluteFile().toString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                             if(files[j].length() > 0) {
-                                imgListHtml += "<tr><td><p><img src=\"" +
+                                imgListHtml += "<tr><td><p style=\"" + Imagen.rotateCssPHtml(orientation, 300, 169) + "\"><img src=\"" +
                                         o.getNombre() + "/" +
                                         po.getCodificacion() + "/" +
                                         files[j].getName() +
-                                        "\" style=\"width:300px; height: 169px;\"></img></p></td></tr>";
+                                        "\" style=\"width:300px; height: 169px;" + Imagen.rotateCss(orientation) + "\"></img></p></td></tr>";
                             }
                         }
                     }
@@ -723,7 +741,7 @@ public class MainActivity extends ActionBarActivity {
 
 
                         html += "<tr><td colspan=2><h3 style=\"background: #efefef\">" + po.getCodificacion() + "</h3></td></tr>";
-                        html += "<tr><td style=\"vertical-align:text-top;\">" + detalle + "</td><td><table>" + imgListHtml + "</table></td></tr>";
+                        html += "<tr><td style=\"vertical-align:text-top;\">" + detalle + "</td><td><table style=\"padding-top: 50px;\">" + imgListHtml + "</table></td></tr>";
                     }
 
                 }

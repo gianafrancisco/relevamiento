@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.fransis.adapter.PostesArrayAdapter;
 import com.fransis.backend.ObraSeleccionada;
 import com.fransis.backend.PostacionSeleccionada;
 import com.fransis.helper.SqlHelperRelevamiento;
@@ -49,6 +50,8 @@ public class PostacionFragment extends DialogFragment {
     private ListView my_listview=null;
     private GridView gridview=null;
     private View.OnClickListener listener= null;
+    private File photoFile = null;
+    private PostesArrayAdapter adapterPostacion;
     public PostacionFragment() {
 
     }
@@ -62,7 +65,8 @@ public class PostacionFragment extends DialogFragment {
         gridview = (GridView) rootView.findViewById(R.id.postacion_gridview);
 
 
-        gridview.setAdapter(dbRelevamiento.getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada()));
+        adapterPostacion = dbRelevamiento.getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada());
+        gridview.setAdapter(adapterPostacion);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Postacion p = (Postacion) gridview.getItemAtPosition(position);
@@ -99,15 +103,17 @@ public class PostacionFragment extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode) {
-            case FILE_SELECT_CODE:
+            case REQUEST_TAKE_PHOTO:
                 if (resultCode == 1) {
                     // Get the Uri of the selected file
                     Uri uri = data.getData();
                     Log.v("DebugAPP", "File Uri: " + uri.toString());
+                }else{
+                    //Log.v("DebugAPP", "Delete file: " + photoFile.getName().toString());
+                    //photoFile.delete();
                 }
                 break;
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -117,12 +123,13 @@ public class PostacionFragment extends DialogFragment {
         AdapterView.AdapterContextMenuInfo info =(AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Postacion p=(Postacion)gridview.getItemAtPosition(info.position);
         PostacionSeleccionada.getInstance().setPostacion(p);
-        gridview.setAdapter(SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada()));
+        adapterPostacion = SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada());
+        gridview.setAdapter(adapterPostacion);
         switch(item.getItemId()){
 
             case R.id.action_poste_eliminar:
                 SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).deletePostacion(p);
-                gridview.setAdapter(SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada()));
+                gridview.setAdapter(adapterPostacion);
                 return true;
             case R.id.action_poste_insertar:
                 PostacionSeleccionada.getInstance().setInsertar(true);
@@ -159,8 +166,6 @@ public class PostacionFragment extends DialogFragment {
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         File storageProjectDir = new File(storageDir.getAbsolutePath() +"/"+obraName+"/"+id_poste);
         storageProjectDir.mkdirs();
-/*        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES); */
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -175,19 +180,18 @@ public class PostacionFragment extends DialogFragment {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
             try {
                 photoFile = createImageFile();
-                Log.v("DebugAPP",photoFile.getAbsoluteFile().toString());
+                Log.v("DebugAPP", photoFile.getAbsoluteFile().toString());
+                if (photoFile != null) {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(photoFile));
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                }
             } catch (IOException ex) {
-
+                ex.printStackTrace();
             }
             // Continue only if the File was successfully created
-            if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
         }
     }
 
@@ -195,7 +199,6 @@ public class PostacionFragment extends DialogFragment {
         Postacion p = PostacionSeleccionada.getInstance().getPostacion();
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(getActivity().getApplicationContext().LOCATION_SERVICE);
         Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if(loc == null){
             Toast.makeText(getActivity().getApplicationContext(),"Habilite el GPS la hubicación no pudo ser calculada",Toast.LENGTH_LONG).show();
         }else {
@@ -326,7 +329,8 @@ public class PostacionFragment extends DialogFragment {
                 }else{
                     SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).updatePostacion(o,p);
                 }
-                gridview.setAdapter(SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada()));
+                adapterPostacion = SqlHelperRelevamiento.getInstance(getActivity().getApplicationContext()).getAdapterPostacion(ObraSeleccionada.getInstance().getObraSeleccionada());
+                gridview.setAdapter(adapterPostacion);
             }
         });
         builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
