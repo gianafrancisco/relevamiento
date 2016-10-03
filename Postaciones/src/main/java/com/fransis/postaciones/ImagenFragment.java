@@ -57,6 +57,7 @@ public class ImagenFragment extends DialogFragment {
     private ImageView imageView = null;
     private Obra obra;
     private Postacion postacion;
+    ImagenesArrayAdapter imagenesArrayAdapter = null;
     public ImagenFragment() {
         obra = ObraSeleccionada.getInstance().getObraSeleccionada();
         postacion = PostacionSeleccionada.getInstance().getPostacion();
@@ -76,17 +77,19 @@ public class ImagenFragment extends DialogFragment {
                 return filename.contains(".jpg");
             }
         });
-        ImagenesArrayAdapter imagenesArrayAdapter = new ImagenesArrayAdapter(getActivity(), R.layout.item_imagen);
+        imagenesArrayAdapter = new ImagenesArrayAdapter(getActivity(), R.layout.item_imagen);
         ExifInterface exif = null;
         if(files != null && files.length > 0){
+            int index = 0;
             for(File fi: files){
-
+                index++;
                 try {
                     exif = new ExifInterface(fi.getAbsoluteFile().toString());
                     int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                             ExifInterface.ORIENTATION_UNDEFINED);
                     Bitmap thumbImage = Imagen.rotateBitmap(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(fi.getAbsoluteFile().toString()), 512, 512), orientation);
-                    imagenesArrayAdapter.add(thumbImage);
+                    com.fransis.model.Imagen item = new com.fransis.model.Imagen(fi.getAbsoluteFile().toString(), thumbImage, index);
+                    imagenesArrayAdapter.add(item);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -94,12 +97,13 @@ public class ImagenFragment extends DialogFragment {
         }
         gridview.setAdapter(imagenesArrayAdapter);
         if(!imagenesArrayAdapter.isEmpty()){
-            imageView.setImageBitmap((Bitmap) gridview.getItemAtPosition(0));
+            com.fransis.model.Imagen itemAtPosition = (com.fransis.model.Imagen) gridview.getItemAtPosition(0);
+            imageView.setImageBitmap(itemAtPosition.getBitmap());
         }
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Bitmap f = (Bitmap) gridview.getItemAtPosition(position);
-                imageView.setImageBitmap(f);
+                com.fransis.model.Imagen f = (com.fransis.model.Imagen) gridview.getItemAtPosition(position);
+                imageView.setImageBitmap(f.getBitmap());
             }
         });
         registerForContextMenu(gridview);
@@ -121,6 +125,11 @@ public class ImagenFragment extends DialogFragment {
         AdapterView.AdapterContextMenuInfo info =(AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()){
             case R.id.action_imagen_eliminar:
+                com.fransis.model.Imagen i = (com.fransis.model.Imagen)imagenesArrayAdapter.getItem(info.position);
+                imagenesArrayAdapter.remove(i);
+                File f = new File(i.getFilename());
+                f.delete();
+                imagenesArrayAdapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onContextItemSelected(item);

@@ -464,9 +464,9 @@ public class MainActivity extends ActionBarActivity {
                             "<p>"+getResources().getString(R.string.empalme) + ": " + po.getEmpalme() + "</p>\n" +
                             "<p>"+getResources().getString(R.string.mensula_prologada) + ": " + po.getMensula_prolongada() + "</p>\n" +
                             "<p>"+getResources().getString(R.string.detalles_adicionales) + ": " + po.getDetalle_adicional() + "</p>\n" +
-                            "</td></tr>" +
+                            "</td></tr><tr><td><table style=\"padding-top: 50px;\">" +
                             imgList +
-                            "<tr><td>" +
+                            "</table></td></tr><tr><td>" +
                             realizadoPor +
                             "<p></p>\n" +
                             "</td></tr>" +

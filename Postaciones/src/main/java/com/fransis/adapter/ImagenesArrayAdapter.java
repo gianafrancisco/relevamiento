@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.fransis.backend.PostacionSeleccionada;
 import com.fransis.helper.GpsHelperCoordinates;
+import com.fransis.model.Imagen;
 import com.fransis.model.Obra;
 import com.fransis.model.Postacion;
 import com.fransis.postaciones.R;
@@ -23,7 +24,7 @@ import java.io.File;
 /**
  * Created by francisco on 24/01/14.
  */
-public class ImagenesArrayAdapter extends ArrayAdapter<Bitmap> {
+public class ImagenesArrayAdapter extends ArrayAdapter<Imagen> {
 
     private Context mContext=null;
     private Obra obra = null;
@@ -36,11 +37,13 @@ public class ImagenesArrayAdapter extends ArrayAdapter<Bitmap> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Bitmap file = (Bitmap)getItem(position);
+        Imagen file = (Imagen)getItem(position);
         LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = vi.inflate(R.layout.item_imagen, null);
         ImageView iv_camera = (ImageView)convertView.findViewById(R.id.iv_preview);
-        iv_camera.setImageBitmap(file);
+        TextView tv_index = (TextView)convertView.findViewById(R.id.tv_label);
+        tv_index.setText(String.valueOf(file.getNumero()));
+        iv_camera.setImageBitmap(file.getBitmap());
         return convertView;
     }
 }
