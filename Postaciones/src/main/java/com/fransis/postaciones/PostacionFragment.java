@@ -2,6 +2,7 @@ package com.fransis.postaciones;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -163,8 +165,10 @@ public class PostacionFragment extends DialogFragment {
         String id_poste = PostacionSeleccionada.getInstance().getPostacion().getPostacion_id().toString();
         String imageFileName = id_poste+"_" + timeStamp + "_";
         String obraName= ObraSeleccionada.getInstance().getObraSeleccionada().getNombre();
+        //File[] externalFilesDirs = ContextCompat.getExternalFilesDirs(getActivity().getApplicationContext(), Environment.DIRECTORY_DOWNLOADS);
+        //File storageDir = externalFilesDirs[1];
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        File storageProjectDir = new File(storageDir.getAbsolutePath() +"/"+obraName+"/"+id_poste);
+        File storageProjectDir = new File(storageDir.getAbsolutePath() + "/" + obraName + "/" + id_poste);
         storageProjectDir.mkdirs();
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
