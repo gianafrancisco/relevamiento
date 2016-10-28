@@ -1,10 +1,15 @@
 package com.fransis.postaciones;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.fransis.helper.Security;
+
+import java.util.Calendar;
 
 /**
  * Created by francisco on 03/06/14.
@@ -17,12 +22,11 @@ public class MainActivityObras extends MainActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new ObraFragment()).commit();
             getSupportFragmentManager().beginTransaction().add(R.id.container_gps, new GpsFragment()).commit();
         }
-
+        Security.exitAfterDate(this);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        //super.onCreateContextMenu(menu, v, menuInfo);
 
     }
 
